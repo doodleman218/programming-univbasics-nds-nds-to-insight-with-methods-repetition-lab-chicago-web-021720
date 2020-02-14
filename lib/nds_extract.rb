@@ -2,30 +2,31 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 require_relative './directors_database'
 require 'pry'
 
-def directors_totals(source)
-  result = {}
-  director_index = 0
-  while director_index < source.size do
-    director = source[director_index]
-    result[director[:name]] = gross_for_director(director)
-    director_index += 1
-  end
-  result
-end
+
 
 # def directors_totals(source)
 #   result = {}
 #   director_index = 0
 #   while director_index < source.size do
-#     director = source[director_index]
 #     binding.pry
-#     result[director][:name] = gross_for_director(director)
+#     director = source[director_index]
+#     result[director[:name]] = gross_for_director(director)
 #     director_index += 1
 #   end
 #   result
 # end
+  
+def directors_totals(source)
+  result = {}
+  director_index = 0
+  while director_index < source.size do
 
-
+    director = source[director_index][:name]
+    result[director] = gross_for_director(source[director_index])
+    director_index += 1
+  end
+  result
+end
 
 
 
@@ -51,13 +52,16 @@ def list_of_directors(source)
   result
 end
 
+
 def total_gross(source)
   gross_result = 0
   totals_index = 0
-  dir_names = list_of_directors(source)
+ 
+  dir_list = list_of_directors(source)
   dir_var = directors_totals(source) 
-    while totals_index < dir_names.length do
-      dir_name = dir_names[totals_index]
+    while totals_index < dir_list.length do
+      dir_name = dir_list[totals_index]
+      binding.pry
       gross_result += dir_var[dir_name]
       totals_index += 1
     end
@@ -76,4 +80,18 @@ end
   # Visit each key (i.e. director name), look up the value in the hash
   # returned by directors_totals, and add it to a running total. When done,
   # return the total
+  
+  
+  
+  # def directors_totals(source)
+#   result = {}
+#   director_index = 0
+#   while director_index < source.size do
+#     director = source[director_index]
+#     binding.pry
+#     result[director][:name] = gross_for_director(director)
+#     director_index += 1
+#   end
+#   result
+# end
 
